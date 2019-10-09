@@ -5,17 +5,18 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default {
   name: 'Preview',
-  beforeCreate () {
-    const previewToken = this.$route.query.token
+  beforeCreate() {
+    const previewToken = this.$route.query.token;
 
-    this.$prismic.client.previewSession(previewToken, this.$prismic.linkResolver, '/')
-      .then((url) => {
-        window.location.replace(url)
-      })
+    this.$prismic.client
+      .previewSession(previewToken, this.$prismic.linkResolver, '/')
+      .then(url => {
+        window.location.replace(url);
+      });
   }
-}
+};
 </script>

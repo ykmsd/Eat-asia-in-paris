@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import NotFound from './views/NotFound.vue'
-import Preview from './views/Preview.vue'
-import Tutorial from './views/Tutorial.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import NotFound from './views/NotFound.vue';
+import Preview from './views/Preview.vue';
+import Tutorial from './views/Tutorial.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -33,4 +33,4 @@ export default new Router({
       redirect: { name: 'not-found' }
     }
   ]
-})
+});
