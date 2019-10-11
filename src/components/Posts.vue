@@ -8,7 +8,7 @@
         <!-- <h2>{{ $prismic.richTextAsPlain(post.data.title) }}</h2> -->
         <div class="image-container">
           <div class="image-overlay"></div>
-          <prismic-image :field="post.data.image" width="300" />
+          <prismic-image :field="post.data.main_image" class="image" />
           <div class="image-details fadeIn-bottom">
             <h3 class="title text-color-white">{{ $prismic.richTextAsPlain(post.data.title) }}</h3>
           </div>
@@ -73,7 +73,7 @@ export default {
   opacity: 0;
   height: 99%;
   width: 100%;
-  transition: all 0.3s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
 }
 
 .image-container:hover .image-overlay {
@@ -87,7 +87,7 @@ export default {
   left: 50%;
   opacity: 0;
   transform: translate(-50%, -50%);
-  transition: all 0.3s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
 }
 
 .image-container:hover .image-details {
@@ -98,5 +98,11 @@ export default {
 
 .fadeIn-bottom {
   top: 52%;
+}
+
+.image {
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
 }
 </style>
