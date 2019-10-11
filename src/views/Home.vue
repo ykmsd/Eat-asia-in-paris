@@ -5,7 +5,7 @@
       <!-- Button to edit document in dashboard -->
       <prismic-edit-button :documentId="documentId" />
       <!-- Template for page title -->
-      <h1 class="f-headline">{{ $prismic.richTextAsPlain(fields.title) }}</h1>
+      <h1 class="f1 lh-title">{{ $prismic.richTextAsPlain(fields.title) }}</h1>
     </div>
   </div>
   <!-- If no content return message -->
@@ -66,7 +66,7 @@ export default {
 .header {
   font-family: var(--title-font);
   text-align: center;
-  border-top: 2px solid var(--main-color-dark);
+  border-top: 10px solid var(--main-color-dark);
 }
 
 .home {
