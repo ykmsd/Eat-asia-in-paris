@@ -4,6 +4,7 @@ import NotFound from './views/NotFound.vue';
 import Preview from './views/Preview.vue';
 import Tutorial from './views/Tutorial.vue';
 import Home from './views/Home.vue';
+import Post from './views/Post.vue';
 
 Vue.use(Router);
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/post/:uid',
+      name: 'post',
+      component: Post
     },
     {
       path: '/not-found',

@@ -3,17 +3,17 @@
   <div class="posts-container">
     <div v-if="posts.length !== 0" class="posts">
       <!-- Template for blog posts -->
-      <div v-for="post in posts" :key="post.id">
-        <!-- <router-link :to="linkResolver(post)"> -->
-        <!-- <h2>{{ $prismic.richTextAsPlain(post.data.title) }}</h2> -->
-        <div class="image-container">
-          <div class="image-overlay"></div>
-          <prismic-image :field="post.data.main_image" class="image" />
-          <div class="image-details fadeIn-bottom">
-            <h3 class="title text-color-white">{{ $prismic.richTextAsPlain(post.data.title) }}</h3>
+      <div v-for="post in posts" :key="post.id" v-bind:post="post">
+        <router-link :to="linkResolver(post)">
+          <!-- <h2>{{ $prismic.richTextAsPlain(post.data.title) }}</h2> -->
+          <div class="image-container">
+            <div class="image-overlay"></div>
+            <prismic-image :field="post.data.main_image" class="image" />
+            <div class="image-details fadeIn-bottom">
+              <h3 class="title text-color-white">{{ $prismic.richTextAsPlain(post.data.title) }}</h3>
+            </div>
           </div>
-        </div>
-        <!-- </router-link> -->
+        </router-link>
       </div>
     </div>
     <!-- If no blog posts return message -->
