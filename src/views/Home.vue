@@ -4,7 +4,7 @@
     <!-- Button to edit document in dashboard -->
     <prismic-edit-button :documentId="documentId" />
     <Header :title="$prismic.richTextAsPlain(fields.title)" />
-    <posts />
+    <Posts />
   </div>
   <!-- If no content return message -->
   <div v-else class="home">
