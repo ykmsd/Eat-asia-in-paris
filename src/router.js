@@ -22,7 +22,7 @@ export default new Router({
     },
     {
       path: '/post/:uid',
-      name: 'post',
+      name: 'Post',
       component: Post
     },
     {

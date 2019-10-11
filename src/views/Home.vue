@@ -3,7 +3,6 @@
   <div v-if="hasContent">
     <!-- Button to edit document in dashboard -->
     <prismic-edit-button :documentId="documentId" />
-    <Header :title="$prismic.richTextAsPlain(fields.title)" />
     <Posts />
   </div>
   <!-- If no content return message -->
@@ -13,12 +12,10 @@
 </template>
 
 <script>
-import Header from '../components/Header.vue';
 import Posts from '../components/Posts.vue';
 export default {
   name: 'Home',
   components: {
-    Header,
     Posts
   },
   data() {
@@ -67,7 +64,6 @@ export default {
 
 <style scoped>
 .header {
-  font-family: var(--title-font);
   text-align: center;
   border-top: 10px solid var(--main-color-dark);
 }

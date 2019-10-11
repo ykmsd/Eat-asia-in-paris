@@ -1,17 +1,20 @@
 <template>
   <div id="app">
+    <Header />
     <router-view />
-    <footer-prismic />
+    <Footer />
   </div>
 </template>
 
 <script>
-import FooterPrismic from './components/FooterPrismic.vue';
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
   components: {
-    FooterPrismic
+    Header,
+    Footer
   }
 };
 </script>

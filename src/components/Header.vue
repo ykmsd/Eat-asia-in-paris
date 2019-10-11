@@ -1,15 +1,12 @@
 <template>
   <header class="black-70">
-    <h1 class="f1 lh-title">{{ $props.title }}</h1>
+    <h1 class="f1 lh-title">Eat Asia in Paris</h1>
   </header>
 </template>
 
 <script>
 export default {
-  name: 'Header',
-  props: {
-    title: String
-  }
+  name: 'Header'
 };
 </script>
 

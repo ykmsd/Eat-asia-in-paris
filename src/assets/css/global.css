@@ -7,3 +7,22 @@
   --white: #ffffff;
   --title-font: 'DM Serif Display', serif;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.date {
+  font-family: var(--title-font);
+}
+
+.material-design-icon.icon-2x {
+  height: 2em;
+  width: 2em;
+}
+
+.material-design-icon.icon-2x > .material-design-icon__svg {
+  height: 2em;
+  width: 2em;
+}
