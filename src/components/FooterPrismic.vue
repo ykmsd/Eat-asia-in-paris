@@ -1,8 +1,13 @@
 <template>
   <footer class="footer">
-    <a href="https://prismic.io" target="_blank" rel="noopener">
-      <img class="logo" src="../assets/img/prismic-logo.svg" alt="Prismic" />
-    </a>
+    <p>
+      Follow me on
+      <a
+        class="text-color-main"
+        href="https://instagram.com/eatasiainparis"
+        target="_blank"
+      >Instagram</a>!
+    </p>
   </footer>
 </template>
 
