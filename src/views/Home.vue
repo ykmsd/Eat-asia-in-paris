@@ -1,13 +1,10 @@
 <template>
   <!-- Vue conditional to check if there is any content in document -->
-  <div v-if="hasContent" class="black-70">
-    <div class="header">
-      <!-- Button to edit document in dashboard -->
-      <prismic-edit-button :documentId="documentId" />
-      <!-- Template for page title -->
-      <h1 class="f1 lh-title">{{ $prismic.richTextAsPlain(fields.title) }}</h1>
-      <posts />
-    </div>
+  <div v-if="hasContent">
+    <!-- Button to edit document in dashboard -->
+    <prismic-edit-button :documentId="documentId" />
+    <Header :title="$prismic.richTextAsPlain(fields.title)" />
+    <posts />
   </div>
   <!-- If no content return message -->
   <div v-else class="home">
@@ -16,18 +13,19 @@
 </template>
 
 <script>
+import Header from '../components/Header.vue';
 import Posts from '../components/Posts.vue';
 export default {
   name: 'Home',
   components: {
+    Header,
     Posts
   },
   data() {
     return {
       documentId: '',
       fields: {
-        title: null,
-        description: null
+        title: null
       },
       posts: [],
       linkResolver: this.$prismic.linkResolver,
