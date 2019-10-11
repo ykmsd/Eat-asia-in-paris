@@ -6,6 +6,7 @@
       <prismic-edit-button :documentId="documentId" />
       <!-- Template for page title -->
       <h1 class="f1 lh-title">{{ $prismic.richTextAsPlain(fields.title) }}</h1>
+      <posts />
     </div>
   </div>
   <!-- If no content return message -->
