@@ -15,8 +15,12 @@
 </template>
 
 <script>
+import Posts from '../components/Posts.vue';
 export default {
   name: 'Home',
+  components: {
+    Posts
+  },
   data() {
     return {
       documentId: '',
@@ -70,7 +74,7 @@ export default {
 }
 
 .home {
-  max-width: 700px;
+  /* max-width: 700px; */
   margin: auto;
   text-align: center;
 }

@@ -1,0 +1,40 @@
+{
+  "Main": {
+    "title": {
+      "type": "StructuredText",
+      "config": {
+        "single": "heading1, heading2, heading3, heading4, heading5, heading6",
+        "label": "title"
+      }
+    },
+    "uid": {
+      "type": "UID",
+      "config": {
+        "label": "uid"
+      }
+    },
+    "date": {
+      "type": "Date",
+      "config": {
+        "label": "date"
+      }
+    },
+    "geo": {
+      "type": "GeoPoint",
+      "config": {
+        "label": "geo"
+      }
+    },
+    "image": {
+      "type": "Image",
+      "config": {
+        "constraint": {
+          "width": 500,
+          "height": 500
+        },
+        "thumbnails": [],
+        "label": "image"
+      }
+    }
+  }
+}
