@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville|Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css?family=DM+Serif+Display&display=swap');
 
 :root {
   --main-color: #e53935;
   --main-color-light: #ff6f60;
   --main-color-dark: #ab000d;
   --white: #ffffff;
-  --title-font: 'Playfair Display', serif;
+  --title-font: 'DM Serif Display', serif;
 }
