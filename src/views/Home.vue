@@ -6,6 +6,7 @@
       <prismic-edit-button :documentId="documentId" />
       <!-- Template for page title -->
       <h1 class="f-headline">{{ $prismic.richTextAsPlain(fields.title) }}</h1>
+      <posts />
     </div>
   </div>
   <!-- If no content return message -->
@@ -15,8 +16,12 @@
 </template>
 
 <script>
+import Posts from '../components/Posts.vue';
 export default {
   name: 'Home',
+  components: {
+    Posts
+  },
   data() {
     return {
       documentId: '',
@@ -70,7 +75,7 @@ export default {
 }
 
 .home {
-  max-width: 700px;
+  /* max-width: 700px; */
   margin: auto;
   text-align: center;
 }
