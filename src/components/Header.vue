@@ -1,6 +1,8 @@
 <template>
   <header class="black-70">
-    <h1 class="f1 lh-title">Eat Asia in Paris</h1>
+    <router-link :to="{ name: 'Home' }">
+      <h1 class="f1 lh-title">Eat Asia in Paris</h1>
+    </router-link>
   </header>
 </template>
 
