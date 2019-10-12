@@ -77,11 +77,4 @@ export default {
 .blog-title {
   color: var(--white);
 }
-
-/* Media Queries */
-@media (max-width: 767px) {
-  .home {
-    padding: 0 20px;
-  }
-}
 </style>

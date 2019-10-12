@@ -1,15 +1,14 @@
 <template>
-  <div>
+  <div class="center mw8 content-container">
     <!-- Button to edit document in dashboard -->
     <prismic-edit-button :documentId="documentId" />
-    <div class="back">
-      <router-link :to="{ name: 'home' }">back to list</router-link>
-    </div>
-    <div class="post-container">
+    <div class="post-container relative">
       <prismic-image :field="fields.main_image" />
       <div>
-        <h1 class="post-title dib bb bw2 b--black-05">{{ $prismic.richTextAsPlain(fields.title) }}</h1>
-        <div class="flex">
+        <h1
+          class="post-title dib bb bw2 b--black-05 mb2"
+        >{{ $prismic.richTextAsPlain(fields.title) }}</h1>
+        <div class="flex mb2">
           <template v-for="socialMedia in socialMediaList">
             <prismic-link
               v-if="fields[socialMedia] && fields[socialMedia].url"
@@ -24,12 +23,13 @@
           </template>
         </div>
 
-        <p class="blog-post-meta">
+        <prismic-rich-text class="text lh-copy tj pb5" :field="fields.text" />
+        <div class="created-at absolute bottom-0 f5">
+          <address class="mb1">Address: {{ $prismic.richTextAsPlain(fields.address) }}</address>
           <span
-            class="created-at date"
-          >{{ Intl.DateTimeFormat('en-US', dateOptions).format(new Date(fields.date)) }}</span>
-        </p>
-        <prismic-rich-text :field="fields.text" />
+            class="date f6 moon-gray"
+          >(Written on {{ Intl.DateTimeFormat('en-UK', dateOptions).format(new Date(fields.date)) }})</span>
+        </div>
       </div>
     </div>
   </div>
@@ -39,13 +39,15 @@
 import Instagram from 'vue-material-design-icons/Instagram.vue';
 import GoogleMaps from 'vue-material-design-icons/GoogleMaps.vue';
 import Web from 'vue-material-design-icons/Web.vue';
+import ArrowLeftBox from 'vue-material-design-icons/ArrowLeftBox.vue';
 
 export default {
   name: 'Post',
   components: {
     Instagram,
     GoogleMaps,
-    Web
+    Web,
+    ArrowLeftBox
   },
   data() {
     return {
@@ -76,7 +78,6 @@ export default {
           this.fields = {
             ...document.data
           };
-          console.log(this.fields);
         } else {
           //returns error page
           this.$router.push({ name: 'not-found' });
@@ -95,13 +96,31 @@ export default {
 </script>
 
 <style scoped>
-.post-title {
-  /* border-bottom: 4px solid var(--main-color-dark); */
-}
-
 .post-container {
   display: grid;
-  grid-template-columns: minmax(300px, 600px) minmax(auto, 600px);
+  align-items: center;
+  grid-template-columns: minmax(300px, 600px) minmax(auto, 500px);
   grid-gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    max-width: 460px;
+    margin: auto;
+  }
+  .post-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
+  }
+
+  .created-at {
+    position: initial;
+    padding-top: 16px;
+  }
+
+  .text {
+    padding-bottom: 10px;
+  }
 }
 </style>

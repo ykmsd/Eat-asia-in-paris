@@ -1,9 +1,9 @@
 <template>
   <!-- Check blog posts exist -->
-  <div class="posts-container">
+  <div class="posts-container center">
     <div v-if="posts.length !== 0" class="posts">
       <!-- Template for blog posts -->
-      <div v-for="post in posts" :key="post.id" v-bind:post="post">
+      <div v-for="post in posts" :key="post.id" v-bind:post="post" class="dib">
         <router-link :to="linkResolver(post)">
           <!-- <h2>{{ $prismic.richTextAsPlain(post.data.title) }}</h2> -->
           <div class="image-container">
@@ -53,7 +53,6 @@ export default {
 <style scoped>
 .posts-container {
   max-width: 1200px;
-  margin: auto;
 }
 
 .posts {
@@ -64,6 +63,7 @@ export default {
 }
 
 .image-container {
+  display: inline-block;
   position: relative;
 }
 
@@ -104,5 +104,25 @@ export default {
   object-fit: cover;
   width: 300px;
   height: 300px;
+}
+
+@media (max-width: 768px) {
+  .posts-container {
+    max-width: 480px;
+  }
+
+  .posts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .image-container .image-overlay {
+    opacity: 1;
+  }
+
+  .image-container .image-details {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+  }
 }
 </style>
