@@ -1,24 +1,18 @@
 <template>
-  <!-- Vue conditional to check if there is any content in document -->
   <div v-if="hasContent">
-    <!-- Button to edit document in dashboard -->
     <prismic-edit-button :documentId="documentId" />
-    <Header :title="$prismic.richTextAsPlain(fields.title)" />
-    <posts />
+    <Posts />
   </div>
-  <!-- If no content return message -->
   <div v-else class="home">
-    <p>Please add some content to your blog home document.</p>
+    <p></p>
   </div>
 </template>
 
 <script>
-import Header from '../components/Header.vue';
 import Posts from '../components/Posts.vue';
 export default {
   name: 'Home',
   components: {
-    Header,
     Posts
   },
   data() {
@@ -44,7 +38,7 @@ export default {
           this.checkForContent();
         } else {
           //returns error page
-          this.$router.push({ name: 'not-found' });
+          this.$router.push({ name: 'NotFound' });
         }
       });
     },
@@ -66,26 +60,4 @@ export default {
 </script>
 
 <style scoped>
-.header {
-  font-family: var(--title-font);
-  text-align: center;
-  border-top: 10px solid var(--main-color-dark);
-}
-
-.home {
-  /* max-width: 700px; */
-  margin: auto;
-  text-align: center;
-}
-
-.blog-title {
-  color: var(--white);
-}
-
-/* Media Queries */
-@media (max-width: 767px) {
-  .home {
-    padding: 0 20px;
-  }
-}
 </style>

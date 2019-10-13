@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer w-100 pv3 tc">
     <p>
       Follow me on
       <a
@@ -13,17 +13,9 @@
 
 <script>
 export default {
-  name: 'FooterPrismic'
+  name: 'Footer'
 };
 </script>
 
 <style scoped>
-.footer {
-  padding: 40px 0;
-  text-align: center;
-}
-
-.logo {
-  width: 140px;
-}
 </style>
