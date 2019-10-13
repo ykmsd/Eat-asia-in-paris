@@ -1,11 +1,8 @@
 <template>
-  <!-- Check blog posts exist -->
   <div class="posts-container center">
     <div v-if="posts.length !== 0" class="posts">
-      <!-- Template for blog posts -->
       <div v-for="post in posts" :key="post.id" v-bind:post="post" class="dib">
         <router-link :to="linkResolver(post)">
-          <!-- <h2>{{ $prismic.richTextAsPlain(post.data.title) }}</h2> -->
           <div class="image-container">
             <div class="image-overlay"></div>
             <prismic-image :field="post.data.main_image" class="image" />
@@ -16,16 +13,19 @@
         </router-link>
       </div>
     </div>
-    <!-- If no blog posts return message -->
     <div v-else class="blog-main">
-      <p>No Posts published at this time.</p>
+      <Loading />
     </div>
   </div>
 </template>
 
 <script>
+import Loading from './Loading.vue';
 export default {
   name: 'Posts',
+  components: {
+    Loading
+  },
   data() {
     return {
       posts: [],

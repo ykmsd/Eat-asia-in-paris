@@ -1,8 +1,6 @@
 
   <template>
-  <!-- Vue conditional to check if there is any content in document -->
   <div v-if="hasContent">
-    <!-- Button to edit document in dashboard -->
     <prismic-edit-button :documentId="documentId" />
     <div class="content-container lh-copy center">
       <div class="tc mb4">
@@ -11,15 +9,18 @@
       <prismic-rich-text :field="fields.text" class="tj" />
     </div>
   </div>
-  <!-- If no content return message -->
-  <div v-else class="home">
-    <p>Please add some content to your blog home document.</p>
+  <div v-else>
+    <Loading />
   </div>
 </template>
 
 <script>
+import Loading from '../components/Loading.vue';
 export default {
   name: 'About',
+  components: {
+    Loading
+  },
   data() {
     return {
       hasContent: false,
@@ -38,7 +39,7 @@ export default {
           this.fields.avatar = document.data.avatar;
           this.checkForContent();
         } else {
-          this.$router.push({ name: 'Not-found' });
+          this.$router.push({ name: 'NotFound' });
         }
       });
     },

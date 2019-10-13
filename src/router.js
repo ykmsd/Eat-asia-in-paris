@@ -37,8 +37,8 @@ export default new Router({
       component: Contact
     },
     {
-      path: '/not-found',
-      name: 'Not-found',
+      path: '/NotFound',
+      name: 'NotFound',
       component: NotFound
     },
     {
@@ -48,7 +48,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: { name: 'Not-found' }
+      redirect: { name: 'NotFound' }
     }
   ]
 });

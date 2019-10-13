@@ -1,5 +1,5 @@
 <template>
-  <div class="center mw8 content-container">
+  <div v-if="documentId" class="center mw8 content-container">
     <!-- Button to edit document in dashboard -->
     <prismic-edit-button :documentId="documentId" />
     <div class="post-container relative">
@@ -33,6 +33,9 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <Loading />
+  </div>
 </template>
 
 <script>
@@ -40,6 +43,7 @@ import Instagram from 'vue-material-design-icons/Instagram.vue';
 import GoogleMaps from 'vue-material-design-icons/GoogleMaps.vue';
 import Web from 'vue-material-design-icons/Web.vue';
 import ArrowLeftBox from 'vue-material-design-icons/ArrowLeftBox.vue';
+import Loading from '../components/Loading';
 
 export default {
   name: 'Post',
@@ -47,7 +51,8 @@ export default {
     Instagram,
     GoogleMaps,
     Web,
-    ArrowLeftBox
+    ArrowLeftBox,
+    Loading
   },
   data() {
     return {
@@ -71,7 +76,6 @@ export default {
   },
   methods: {
     getContent(uid) {
-      //Query to get post content
       this.$prismic.client.getByUID('post', uid).then(document => {
         if (document) {
           this.documentId = document.id;
@@ -79,8 +83,7 @@ export default {
             ...document.data
           };
         } else {
-          //returns error page
-          this.$router.push({ name: 'not-found' });
+          this.$router.push({ name: 'NotFound' });
         }
       });
     }

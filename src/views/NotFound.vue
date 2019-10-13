@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <p>Not Found</p>
+  <div class="tc">
+    <p>Page Not Found 🤯</p>
   </div>
 </template>
 

@@ -5,7 +5,7 @@
 
 export default function(doc) {
   if (doc.isBroken) {
-    return '/not-found';
+    return '/NotFound';
   }
 
   if (doc.type === 'home') {
@@ -16,5 +16,5 @@ export default function(doc) {
     return '/post/' + doc.uid;
   }
 
-  return '/not-found';
+  return '/NotFound';
 }

@@ -1,5 +1,5 @@
 <template>
-  <header class="black-70">
+  <header class="black-70 tc">
     <router-link :to="{ name: 'Home' }">
       <h1 class="f1 lh-title">Eat Asia in Paris</h1>
     </router-link>
@@ -15,7 +15,6 @@ export default {
 <style scoped>
 header {
   font-family: var(--title-font);
-  text-align: center;
   border-top: 10px solid var(--main-color-dark);
 }
 </style>
