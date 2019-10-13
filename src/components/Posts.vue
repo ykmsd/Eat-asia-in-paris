@@ -1,18 +1,28 @@
 <template>
   <div class="posts-container center">
-    <div v-if="posts.length !== 0" class="posts">
-      <div v-for="post in posts" :key="post.id" v-bind:post="post" class="dib">
-        <router-link :to="linkResolver(post)">
-          <div class="image-container">
-            <div class="image-overlay"></div>
-            <prismic-image :field="post.data.main_image" class="image" />
-            <div class="image-details fadeIn-bottom">
-              <h3 class="title text-color-white">{{ $prismic.richTextAsPlain(post.data.title) }}</h3>
+    <template v-if="!isLoading">
+      <Filters v-if="tags.length" :tags="tags" @filterChange="onFilterChange($event)" />
+      <div class="posts" v-if="!isNotFound">
+        <div v-for="post in posts" :key="post.id" v-bind:post="post" class="dib">
+          <router-link :to="linkResolver(post)">
+            <div class="image-container">
+              <div class="image-overlay"></div>
+              <prismic-image :field="post.data.main_image" class="image" />
+              <div class="image-details fadeIn-bottom">
+                <h3 class="title text-color-white">{{ $prismic.richTextAsPlain(post.data.title) }}</h3>
+              </div>
             </div>
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
-    </div>
+      <div v-else class="tc">
+        <p class="pa4">
+          Sorry there is no posts related to
+          {{ getNoResultsMessage }}
+        </p>
+      </div>
+    </template>
+
     <div v-else class="blog-main">
       <Loading />
     </div>
@@ -21,31 +31,80 @@
 
 <script>
 import Loading from './Loading.vue';
+import Filters from './Filters.vue';
 export default {
   name: 'Posts',
   components: {
-    Loading
+    Loading,
+    Filters
   },
   data() {
     return {
       posts: [],
+      tags: [],
+      isLoading: true,
+      isNotFound: false,
       dateOptions: { year: 'numeric', month: 'short', day: '2-digit' },
+      searchTerms: '',
+      selectedCategoryOptionLabel: '',
       linkResolver: this.$prismic.linkResolver
     };
   },
+  computed: {
+    getNoResultsMessage: function() {
+      if (this.searchTerms && this.selectedCategoryOptionLabel) {
+        return `"${this.searchTerms}" and "${this.selectedCategoryOptionLabel}"`;
+      } else if (this.searchTerms) {
+        return `"${this.searchTerms}"`;
+      } else {
+        return `"${this.selectedCategoryOptionLabel}"`;
+      }
+    }
+  },
   methods: {
-    getPosts() {
+    getCategories() {
       this.$prismic.client
-        .query(this.$prismic.Predicates.at('document.type', 'post'), {
+        .query([this.$prismic.Predicates.at('document.type', 'tag')])
+        .then(({ results }) => {
+          console.log('categories', results);
+          this.tags = results;
+        });
+    },
+    getQueries(keywords, categoryId) {
+      let queries = [this.$prismic.Predicates.at('document.type', 'post')];
+      if (keywords) {
+        queries.push(this.$prismic.Predicates.fulltext('document', keywords));
+      }
+      if (categoryId) {
+        queries.push(
+          this.$prismic.Predicates.at('my.post.custom_tag', categoryId)
+        );
+      }
+      return queries;
+    },
+    getPosts(keywords, categoryId) {
+      this.$prismic.client
+        .query(this.getQueries(keywords, categoryId), {
           orderings: '[my.post.date desc]'
         })
-        .then(response => {
-          this.posts = response.results;
+        .then(({ results }) => {
+          this.posts = results;
+          this.isLoading = false;
+          this.isNotFound = this.posts.length === 0;
         });
+    },
+    onFilterChange({
+      keywords,
+      selectedCategoryOption: { id, label } = { id: '', label: '' }
+    }) {
+      this.searchTerms = keywords;
+      this.selectedCategoryOptionLabel = label;
+      this.getPosts(keywords, id);
     }
   },
   created() {
     this.getPosts();
+    this.getCategories();
   }
 };
 </script>
