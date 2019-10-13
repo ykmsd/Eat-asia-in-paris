@@ -8,7 +8,7 @@
       <div class="tc mb4">
         <prismic-image :field="fields.avatar" />
       </div>
-      <prismic-rich-text :field="fields.text" />
+      <prismic-rich-text :field="fields.text" class="tj" />
     </div>
   </div>
   <!-- If no content return message -->
@@ -58,5 +58,11 @@ export default {
 <style scoped>
 .content-container {
   width: 600px;
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    width: 400px;
+  }
 }
 </style>
