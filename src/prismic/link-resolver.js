@@ -3,17 +3,13 @@
  * https://prismic.io/docs/vuejs/beyond-the-api/link-resolving
  */
 
-export default function(doc) {
-  if (doc.isBroken) {
-    return '/NotFound';
-  }
-
-  if (doc.type === 'home') {
+export default function({ _meta: meta }) {
+  if (meta.type === 'home') {
     return '/';
   }
 
-  if (doc.type === 'post') {
-    return '/post/' + doc.uid;
+  if (meta.type === 'post') {
+    return '/post/' + meta.uid;
   }
 
   return '/NotFound';

@@ -1,15 +1,15 @@
 <template>
   <div class="posts-container center">
-    <template v-if="!isLoading">
+    <template>
       <Filters v-if="tags.length" :tags="tags" @filterChange="onFilterChange($event)" />
       <div class="posts" v-if="!isNotFound">
-        <div v-for="post in posts" :key="post.id" v-bind:post="post" class="dib">
+        <div v-for="post in allPosts" :key="post.id" v-bind:post="post" class="dib">
           <router-link :to="linkResolver(post)">
             <div class="image-container">
               <div class="image-overlay"></div>
-              <prismic-image :field="post.data.main_image" class="image" />
+              <prismic-image :field="post.main_image" class="image" />
               <div class="image-details fadeIn-bottom">
-                <h3 class="title text-color-white">{{ $prismic.richTextAsPlain(post.data.title) }}</h3>
+                <h3 class="title text-color-white">{{ $prismic.richTextAsPlain(post.title) }}</h3>
               </div>
             </div>
           </router-link>
@@ -22,21 +22,50 @@
         </p>
       </div>
     </template>
-
+    <!-- 
     <div v-else class="blog-main">
       <Loading />
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
+import gql from 'graphql-tag';
 import Loading from './Loading.vue';
 import Filters from './Filters.vue';
+
 export default {
   name: 'Posts',
   components: {
     Loading,
     Filters
+  },
+  apollo: {
+    allPosts: {
+      query: gql`
+        query {
+          allPosts {
+            edges {
+              node {
+                title
+                main_image
+                _meta {
+                  uid
+                  id
+                  type
+                }
+              }
+            }
+          }
+        }
+      `,
+      update({ allPosts: { edges } }) {
+        return edges.map(edge => {
+          const { node } = edge;
+          return node;
+        });
+      }
+    }
   },
   data() {
     return {
@@ -47,7 +76,8 @@ export default {
       dateOptions: { year: 'numeric', month: 'short', day: '2-digit' },
       searchTerms: '',
       selectedCategoryOptionLabel: '',
-      linkResolver: this.$prismic.linkResolver
+      linkResolver: this.$prismic.linkResolver,
+      allPosts: {}
     };
   },
   computed: {
@@ -61,37 +91,37 @@ export default {
       }
     }
   },
+
   methods: {
     getCategories() {
-      this.$prismic.client
-        .query([this.$prismic.Predicates.at('document.type', 'tag')])
-        .then(({ results }) => {
-          console.log('categories', results);
-          this.tags = results;
-        });
+      // this.$prismic.client
+      //   .query([this.$prismic.Predicates.at('document.type', 'tag')])
+      //   .then(({ results }) => {
+      //     this.tags = results;
+      //   });
     },
     getQueries(keywords, categoryId) {
-      let queries = [this.$prismic.Predicates.at('document.type', 'post')];
-      if (keywords) {
-        queries.push(this.$prismic.Predicates.fulltext('document', keywords));
-      }
-      if (categoryId) {
-        queries.push(
-          this.$prismic.Predicates.at('my.post.custom_tag', categoryId)
-        );
-      }
-      return queries;
+      // let queries = [this.$prismic.Predicates.at('document.type', 'post')];
+      // if (keywords) {
+      //   queries.push(this.$prismic.Predicates.fulltext('document', keywords));
+      // }
+      // if (categoryId) {
+      //   queries.push(
+      //     this.$prismic.Predicates.at('my.post.custom_tag', categoryId)
+      //   );
+      // }
+      // return queries;
     },
     getPosts(keywords, categoryId) {
-      this.$prismic.client
-        .query(this.getQueries(keywords, categoryId), {
-          orderings: '[my.post.date desc]'
-        })
-        .then(({ results }) => {
-          this.posts = results;
-          this.isLoading = false;
-          this.isNotFound = this.posts.length === 0;
-        });
+      // this.$prismic.client
+      //   .query(this.getQueries(keywords, categoryId), {
+      //     orderings: '[my.post.date desc]'
+      //   })
+      //   .then(({ results }) => {
+      //     this.posts = results;
+      //     this.isLoading = false;
+      //     this.isNotFound = this.posts.length === 0;
+      //   });
     },
     onFilterChange({
       keywords,
